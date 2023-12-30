@@ -34,27 +34,27 @@ string farmingData[5][5] = {
 void createCharacter() {
     int race, _class;
 
-    cout << "=== CREATE CHARACTER ===" << endl;
+    cout << "====================== CREATE CHARACTER ======================" << endl;
     cout << "CHARACTER NAME: ";
     getline (cin, player[0]);
 
-    cout << "--------- RACES --------" << endl;
+    cout << "--------------------------- RACES ----------------------------" << endl;
     for (int i = 0; i < 3; i++) {
         cout << "[" << i + 1 << "] " << setw (5) << left << races[i][0] << "\tSTATS: (Health Points: " << races[i][1]
              << " | Attack Power: " << races[i][2] << ")" << endl;
     }
-    cout << "------------------------" << endl;
+    cout << "--------------------------------------------------------------" << endl;
     do {
         cout << "CHOOSE YOUR RACE: ";
         cin >> race;
     } while (race < 0 || race > 3);
 
-    cout << "-------- CLASSES -------" << endl;
+    cout << "-------------------------- CLASSES ---------------------------" << endl;
     for (int i = 0; i < 3; i++) {
         cout << "[" << i + 1 << "] " << classes[i][0] << "\tSTATS: (Health Points: +" << classes[i][1]
              << " | Attack Power: +" << classes[i][2] << ")" << endl;
     }
-    cout << "------------------------" << endl;
+    cout << "--------------------------------------------------------------" << endl;
     do {
         cout << "CHOOSE YOUR CLASS: ";
         cin >> _class;
@@ -67,52 +67,49 @@ void createCharacter() {
 }
 
 void viewCharacter() {
-    cout << "=== VIEW CHARACTER ===" << endl;
-    if (!player[0].empty ()) {
-        cout << "NAME   : " << player[0] << endl;
-        cout << "RACE   : " << player[1] << endl;
-        cout << "CLASS  : " << player[2] << endl;
-        cout << "HP     : " << player[3] << endl;
-        cout << "AP     : " << player[4] << endl;
-    } else {
-        cout << "CHARACTER HAS NOT BEEN CREATED" << endl;
-    }
+    cout << "======================= VIEW CHARACTER =======================" << endl;
+    cout << "NAME   : " << player[0] << endl;
+    cout << "RACE   : " << player[1] << endl;
+    cout << "CLASS  : " << player[2] << endl;
+    cout << "HP     : " << player[3] << endl;
+    cout << "AP     : " << player[4] << endl;
 }
 
 bool checkRequiredFarming(int reqHP, int reqAP) {
     return stoi(player[3]) >= reqHP && stoi(player[4]) >= reqAP;
 }
+
 void entryFarming(int terrain) {
     player[3] = to_string(stoi(player[3]) + stoi(farmingData[terrain][1]));
     player[4] = to_string(stoi(player[4]) + stoi(farmingData[terrain][2]));
 }
+
 void farming() {
-    string terrainInput;
+    int terrainInput;
     do {
-        cout << "<= Select your Farming Terrain =>" << endl;
+        cout << "====================== FARMING TERRAIN =======================" << endl;
         for (int i = 0; i < sizeof(farmingData)/sizeof(farmingData[0]) ; i++) {
             cout << "[" << i + 1 << "] " << farmingData[i][0] << endl;
-            cout << "Obtained HP: " << farmingData[i][1] << endl;
-            cout << "Obtained AP: " << farmingData[i][2] << endl;
-            cout << "Required HP: " << farmingData[i][3] << endl;
-            cout << "Required AP: " << farmingData[i][4] << endl;
+            cout << "OBTAINED HP: " << farmingData[i][1] << endl;
+            cout << "OBTAINED AP: " << farmingData[i][2] << endl;
+            cout << "REQUIRED HP: " << farmingData[i][3] << endl;
+            cout << "REQUIRED AP: " << farmingData[i][4] << endl;
             if (i < sizeof (farmingData) - 2  ) {
-                for (int j = 0; j < 25; j++) {
+                for (int j = 0; j <62; j++) {
                     cout << "=";
                 }
                 cout << endl;
             }
         }
-        cout << "[0]" << "Exit Menu" << endl;
-        cout << "Terrain: ";
+        cout << "[0] " << "EXIT MENU" << endl;
+        cout << "SELECT YOUR TERRAIN: ";
         cin >> terrainInput;
-        int terrainIndex = stoi(terrainInput) - 1;
-        if (checkRequiredFarming(stoi(farmingData[terrainIndex][3]), stoi(farmingData[terrainIndex][4]))) {
-            entryFarming(terrainIndex);
+        if (checkRequiredFarming(stoi(farmingData[terrainInput - 1][3]), stoi(farmingData[terrainInput - 1][4]))) {
+            entryFarming(terrainInput - 1);
         } else {
-            cout << "Required HP or AP Not met";
+            cout << "REQUIRED HP OR AP NOT MET!" << endl;
         }
-    } while (terrainInput != "0");
+    } while (terrainInput <= 0 && terrainInput > 5);
 }
 
 
@@ -149,22 +146,18 @@ void battleFight(int monsterType) {
 void battle() {
     int monster;
 
-    cout << "=== BATTLE ===" << endl;
-    if (!player->empty ()) {
-        for (int i = 0; i < 3; i++) {
-            cout << "[" << i + 1 << "] " << monsters[i][0] << endl;
-        }
-        cout << "--------------" << endl;
-        cout << "CHOOSE MONSTER TO FIGHT: ";
-        cin >> monster;
+    cout << "=========================== BATTLE ===========================" << endl;
+    for (int i = 0; i < 3; i++) {
+        cout << "[" << i + 1 << "] " << monsters[i][0] << endl;
+    }
+    cout << "--------------------------------------------------------------" << endl;
+    cout << "CHOOSE MONSTER TO FIGHT: ";
+    cin >> monster;
 
-        if (monster > 0 && monster < 4) {
-            battleFight (monster);
-        } else {
-            cout << "MONSTER NOT FOUND" << endl;
-        }
+    if (monster > 0 && monster < 4) {
+        battleFight (monster);
     } else {
-        cout << "CHARACTER HAS NOT BEEN CREATED" << endl;
+        cout << "MONSTER NOT FOUND" << endl;
     }
 }
 

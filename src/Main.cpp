@@ -9,10 +9,10 @@ int main() {
     createCharacter();
     do {
         viewCharacter();
-        cout << "=== BATTLE GAME ===\n";
-        cout << "[1] FARMING\n";
-        cout << "[2] BATTLE\n";
-        cout << "-------------------\n";
+        cout << "======================== BATTLE GAME =========================" << endl;
+        cout << "[1] FARMING" << endl;
+        cout << "[2] BATTLE" << endl;
+        cout << "--------------------------------------------------------------" << endl;
         cout << "MENU: ";
         cin >> opsi;
         cin.ignore();
